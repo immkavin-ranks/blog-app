@@ -137,7 +137,7 @@
       class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle"
     >
       <button
-        class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+        class="btn btn-bd-secondary-outline py-2 dropdown-toggle d-flex align-items-center"
         id="bd-theme"
         type="button"
         aria-expanded="false"
@@ -301,36 +301,46 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form action="/create" method="post" id="blogForm">
               <div class="mb-3">
                 <label for="blog-title" class="col-form-label">Title</label>
-                <input type="text" class="form-control" id="blog-title" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="blog-title"
+                  name="title"
+                />
               </div>
               <div class="mb-3">
                 <label for="blog-description" class="col-form-label"
                   >Description</label
                 >
-                <textarea class="form-control" id="blog-description"></textarea>
+                <textarea
+                  class="form-control"
+                  id="blog-description"
+                  name="description"
+                ></textarea>
               </div>
               <div class="mb-3">
                 <label for="blog-content" class="col-form-label">Content</label>
                 <textarea
                   class="form-control"
                   id="blog-content"
+                  name="content"
                   rows="5"
                 ></textarea>
               </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <input class="btn btn-primary" type="submit" value="Publish" />
+              </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Publish</button>
           </div>
         </div>
       </div>
@@ -348,25 +358,23 @@
             contents.
           </p>
           <p class="lead mb-0">
-            <a href="#" class="text-body-emphasis fw-bold"
-              >Visit Github</a
-            >
+            <a href="#" class="text-body-emphasis fw-bold">Visit Github</a>
           </p>
         </div>
       </div>
 
-      <div class="row mb-2">
-        <div class="col-md-6">
+      <div class="row row-cols-3 mb-2">
+        <% if (locals.blogs) { %> <% blogs.reverse().forEach(blog => { %>
+        <div class="col-md-6 blog-card">
           <div
             class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
           >
             <div class="col p-4 d-flex flex-column position-static">
-              <h3 class="mb-0">Post title</h3>
-              <div class="mb-1 text-body-secondary">Nov 11</div>
-              <p class="mb-auto">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content.
-              </p>
+              <h3 class="mb-0"><%= blog.title %></h3>
+              <div class="mb-1 text-body-secondary">
+                <%= blog.createdDate %>
+              </div>
+              <p class="mb-auto"><%= blog.description %></p>
               <a
                 href="#"
                 class="icon-link gap-1 icon-link-hover stretched-link"
@@ -377,6 +385,7 @@
             </div>
           </div>
         </div>
+        <% }) %> <% } %>
       </div>
     </main>
 
@@ -386,7 +395,7 @@
       </p>
       <p>
         <small>
-          Blog built by
+          This blog app is built by
           <a href="https://github.com/immkavin-ranks/">@immkavin-ranks</a>.
         </small>
       </p>
@@ -400,6 +409,11 @@
     <script
       src="/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
   </body>
