@@ -10,7 +10,7 @@ app.use(express.static("public"));
 let blogs = [];
 
 app.get("/", (req, res) => {
-  res.render("index.ejs", { blogs });
+  res.render("index.ejs", { blogs, isViewRoute: false });
 });
 
 // CRUD routes
@@ -30,7 +30,13 @@ app.post("/create", (req, res) => {
 
   res.redirect("/");
 });
-app.get("/view", (req, res) => {});
+app.get("/view/:id", (req, res) => {
+  const blogId = req.params.id;
+
+  const blog = blogs[blogId - 1];
+
+  res.render("blog.ejs", { blog, isViewRoute: true });
+});
 app.put("/edit", (req, res) => {});
 app.delete("/delete", (req, res) => {});
 
