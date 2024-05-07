@@ -110,11 +110,11 @@
               <p class="mb-auto"><%= blog.description %></p>
               <a
                 href="/view/<%= blog.id %>"
-                class="icon-link gap-1 icon-link-hover stretched-link"
+                class="icon-link gap-1 icon-link-hover"
               >
                 Continue reading
                 <svg class="bi"><use xlink:href="#chevron-right" /></svg>
-              </a>
+              </a>           
             </div>
           </div>
         </div>
@@ -126,9 +126,9 @@
 
     <!-- reset the modal values on close -->
     <script>
-  $('#exampleModal').on('hidden.bs.modal', function () {
-      $(this).find('form').trigger('reset');
-  });
-</script>
+      $('#exampleModal').on('hidden.bs.modal', function () {
+          $(this).find('form').trigger('reset');
+      });
+    </script>
   </body>
 </html>
