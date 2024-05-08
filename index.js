@@ -41,11 +41,10 @@ app.get("/view/:id", (req, res) => {
 app.get("/edit/:id", (req, res) => {
   const blogId = req.params.id;
   const blog = blogs[blogId - 1];
-  console.log(blog);
-  res.render("editBlog.ejs", { blog });
+  res.render("editBlog.ejs", { blog, isEditRoute: true });
 });
 
-app.put("/save/:id", (req, res) => {
+app.post("/save/:id", (req, res) => {
   const blogId = req.params.id;
   const { title, description, content } = req.body;
 
