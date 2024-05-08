@@ -1,0 +1,43 @@
+<%- include("partials/header.ejs") %>
+<div class="container">
+  <form action="/save/<%= blog.id %>" method="post" id="editBlogForm">
+    <div class="mb-3">
+      <label for="edit-blog-title" class="col-form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="edit-blog-title"
+        name="title"
+        value="<%= blog.title %>"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="edit-blog-description" class="col-form-label"
+        >Description</label
+      >
+      <textarea
+        class="form-control"
+        id="edit-blog-description"
+        name="description"
+      >
+<%= blog.description%></textarea
+      >
+    </div>
+    <div class="mb-3">
+      <label for="edit-blog-content" class="col-form-label">Content</label>
+      <textarea
+        class="form-control"
+        id="edit-blog-content"
+        name="content"
+        rows="5"
+      >
+<%= blog.content %></textarea
+      >
+    </div>
+    <div>
+      <input class="btn btn-primary mb-4" type="submit" value="Save changes" />
+    </div>
+  </form>
+</div>
+
+<%- include("partials/footer.ejs") %>
