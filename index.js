@@ -37,7 +37,6 @@ app.get("/view/:id", (req, res) => {
   res.render("blog.ejs", { blog, isViewRoute: true });
 });
 
-
 app.get("/edit/:id", (req, res) => {
   const blogId = req.params.id;
   const blog = blogs[blogId - 1];
@@ -59,7 +58,13 @@ app.post("/save/:id", (req, res) => {
   res.redirect("/");
 });
 
-app.delete("/delete", (req, res) => {});
+app.get("/delete/:id", (req, res) => {
+  const blogId = parseInt(req.params.id);
+
+  blogs = blogs.filter(obj => obj.id !== blogId)
+
+  res.redirect("/");
+});
 
 app.listen(PORT, () => {
   console.log(`Application running on port ${PORT}`);
