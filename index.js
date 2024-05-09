@@ -1,4 +1,5 @@
 import express from "express";
+import {v4 as uuidv4} from "uuid"
 
 const app = express();
 const PORT = 3000;
@@ -18,7 +19,7 @@ app.get("/", (req, res) => {
 app.post("/create", (req, res) => {
   const { title, description, content } = req.body;
   const newBlog = {
-    id: blogs.length + 1,
+    id: uuidv4(),
     title,
     description,
     content,
@@ -32,14 +33,14 @@ app.post("/create", (req, res) => {
 app.get("/view/:id", (req, res) => {
   const blogId = req.params.id;
 
-  const blog = blogs[blogId - 1];
+  const blog = blogs.find((blog) => blog.id === blogId);
 
   res.render("blog.ejs", { blog, isViewRoute: true });
 });
 
 app.get("/edit/:id", (req, res) => {
   const blogId = req.params.id;
-  const blog = blogs[blogId - 1];
+  const blog = blogs.find((blog) => blog.id === blogId);
   res.render("editBlog.ejs", { blog, isEditRoute: true });
 });
 
@@ -48,7 +49,7 @@ app.post("/save/:id", (req, res) => {
   const { title, description, content } = req.body;
 
   // Find the index of the blog in the array
-  const index = blogId - 1;
+  const index = blogs.findIndex((blog) => blog.id === blogId);
 
   // Update the blog with the new values
   blogs[index].title = title;
@@ -59,9 +60,11 @@ app.post("/save/:id", (req, res) => {
 });
 
 app.get("/delete/:id", (req, res) => {
-  const blogId = parseInt(req.params.id);
+  const blogId = req.params.id;
 
-  blogs = blogs.filter(obj => obj.id !== blogId)
+  const index = blogs.findIndex((blog) => blog.id === blogId);
+
+  blogs.splice(index, 1);
 
   res.redirect("/");
 });
